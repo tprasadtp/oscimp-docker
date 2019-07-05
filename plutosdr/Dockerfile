@@ -48,7 +48,7 @@ RUN cd buildroot-2019.02-pluto \
     && make
 
 FROM debian:9.9
-RUN apt-get updae && apt-get install -y --no-install-recommends passwd dumb-init samba smbclient
+RUN apt-get update && apt-get install -y --no-install-recommends passwd dumb-init samba smbclient
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 WORKDIR /srv/buildroot-pluto
 COPY --from=buildrooter /home/ubuntu/buildroot-2019.02-pluto .

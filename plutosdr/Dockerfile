@@ -47,7 +47,18 @@ RUN cd buildroot-2019.02-pluto \
     && unset LD_LIBRARY_PATH \
     && make
 
-USER root
-RUN chown -R 1000:1000 {PlutoSDR, buildroot-2019.02-pluto} \
-    && rm buildroot-2019.02.tar.gz
-USER ubuntu
+FROM debian:9.9
+RUN apt-get updae && apt-get install -y --no-install-recommends passwd dumb-init samba smbclient
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+WORKDIR /srv/buildroot-pluto
+COPY --from=buildrooter /home/ubuntu/buildroot-2019.02-pluto .
+VOLUME ["/etc/samba", "/var/cache/samba", "/var/lib/samba", "/var/log/samba",\
+"/run/samba"]
+
+COPY smb.conf /etc/samba/smb.conf
+EXPOSE 137/udp 138/udp 139 445
+HEALTHCHECK --interval=60s --timeout=15s \
+            CMD smbclient -L '\\localhost' -U '%' -m SMB3
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["smbd", "--foreground", "--log-stdout"]

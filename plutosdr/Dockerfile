@@ -46,3 +46,8 @@ RUN cd buildroot-2019.02-pluto \
     && make zynq_pluto_defconfig \
     && unset LD_LIBRARY_PATH \
     && make
+
+USER root
+RUN chown -R 1000:1000 {PlutoSDR, buildroot-2019.02-pluto} \
+    && rm buildroot-2019.02.tar.gz
+USER ubuntu

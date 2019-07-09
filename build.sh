@@ -46,9 +46,17 @@ build_docker_image()
     export DOCKER_BUILDKIT=1
   fi
 
-  docker_image_tag="${docker_image_tag_prefix}-${BOARD}:${TRAVIS_COMMIT:0:7}"
   printf "Building docker image for ${BOARD}\n"
-  docker build --tag ${docker_image_tag} ${BOARD}
+
+  if [[ $TRAVIS == "true" ]]; then
+    docker_image_tag="${docker_image_tag_prefix}-${BOARD}:${TRAVIS_COMMIT:0:7}"
+    travis_wait docker build --tag ${docker_image_tag} ${BOARD}
+  else
+    TRAVIS_COMMIT="$(git rev-parse HEAD)"
+    docker_image_tag="${docker_image_tag_prefix}-${BOARD}:${TRAVIS_COMMIT:0:7}"
+    docker build --tag ${docker_image_tag} ${BOARD}
+  fi
+
   if [[ $disable_latest_tag == "true" ]]; then
     printf "Image will not be tagged latest.\n"
   else

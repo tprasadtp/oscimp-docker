@@ -48,9 +48,7 @@ build_docker_image()
 
   docker_image_tag="${docker_image_tag_prefix}-${BOARD}:${TRAVIS_COMMIT:0:7}"
   printf "Building docker image for ${BOARD}\n"
-  docker build --tag ${docker_image_tag} \
-            -f  \
-            ${BOARD}
+  docker build --tag ${docker_image_tag} ${BOARD}
   if [[ $disable_latest_tag == "true" ]]; then
     printf "Image will not be tagged latest.\n"
   else

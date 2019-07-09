@@ -53,6 +53,6 @@ accordingly.
 
 ## Issues
 
-- If you have issues using or building the buildroot, open an issue on [Github]().
+- If you have issues using or building the buildroot, open an issue on [Github](https://github.com/imtek-emp/oscimp-docker/issues).
 
 - Maintained by [Prasad Tengse](https://github.com/tprasadtp).

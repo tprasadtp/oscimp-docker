@@ -10,9 +10,7 @@ branches:
   - gh-pages
   - github_metadata
 before_install:
-- sudo apt-get purge docker-ce && sudo apt-get autoremove
-- sudo apt-get update
-- sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker.io
+- sudo cp cfg/daemon.json /etcdocker/daemon.json
 - sudo systemctl restart docker
 - sudo systemctl status docker
 - docker info

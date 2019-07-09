@@ -53,18 +53,24 @@ build_docker_image()
     COMMIT_ID="$(git rev-parse HEAD)"
   fi
 
-  docker_image_tag="${docker_image_tag_prefix}-${BOARD}:${COMMIT_ID:0:7}"
-  docker build --tag ${docker_image_tag} ${BOARD}
-
-  if [[ $disable_latest_tag == "true" ]]; then
-    printf "Image will not be tagged latest.\n"
+  if [[ $skip_build == "true" ]];then
+    echo "Skipping Build"
+    env
+    ( set -o posix ; set )
   else
-    printf "Add latest tag...\n"
-    docker tag "${docker_image_tag}" "${docker_image_tag_prefix}-${BOARD}:latest"
-  fi
+    docker_image_tag="${docker_image_tag_prefix}-${BOARD}:${COMMIT_ID:0:7}"
+    docker build --tag ${docker_image_tag} ${BOARD}
 
-  if [[ $run_dummy == "true" ]]; then
-    docker run --name buildroot ${docker_image_tag_prefix}-${BOARD}:${COMMIT_ID:0:7} /bin/true
+    if [[ $disable_latest_tag == "true" ]]; then
+      printf "Image will not be tagged latest.\n"
+    else
+      printf "Add latest tag...\n"
+      docker tag "${docker_image_tag}" "${docker_image_tag_prefix}-${BOARD}:latest"
+    fi
+
+    if [[ $run_dummy == "true" ]]; then
+      docker run --name buildroot ${docker_image_tag_prefix}-${BOARD}:${COMMIT_ID:0:7} /bin/true
+    fi
   fi
 
 }
@@ -79,6 +85,7 @@ main()
       -h | --help)                     display_usage;exit 0;;
       -b | --board)                    shift;board="${1}";;
       -d | --dummy)                    run_dummy="true";;
+      -- skip-build)                   skip_build="true";;
       *)                               printf "Invalid argument!\n";exit 1;;
     esac
     shift

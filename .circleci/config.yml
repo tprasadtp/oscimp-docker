@@ -35,7 +35,7 @@ jobs:
           # Build Buildroot
           name: Build Pluto Buildroot
           command: |
-            ./build.sh -k -b pluto
+            ./build.sh -k -b pluto --skip-build
             mkdir -p releases/pluto
       - run:
           # after application container finishes, copy artifacts directly from it

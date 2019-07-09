@@ -10,7 +10,7 @@ branches:
   - gh-pages
   - github_metadata
 before_install:
-- sudo cp cfg/daemon.json /etcdocker/daemon.json
+- sudo mkdir -p /etc/docker/ && sudo cp cfg/daemon.json /etc/docker/daemon.json
 - sudo systemctl restart docker
 - sudo systemctl status docker
 - docker info

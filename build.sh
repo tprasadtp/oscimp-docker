@@ -50,7 +50,7 @@ build_docker_image()
 
   if [[ $TRAVIS == "true" ]]; then
     docker_image_tag="${docker_image_tag_prefix}-${BOARD}:${TRAVIS_COMMIT:0:7}"
-    travis_wait docker build --tag ${docker_image_tag} ${BOARD}
+    docker build --tag ${docker_image_tag} ${BOARD}
   else
     TRAVIS_COMMIT="$(git rev-parse HEAD)"
     docker_image_tag="${docker_image_tag_prefix}-${BOARD}:${TRAVIS_COMMIT:0:7}"

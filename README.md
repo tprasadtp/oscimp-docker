@@ -12,8 +12,8 @@ This repository is home for buildroots for plutosdr and redpitaya to be used wit
 ## License
 
 This repository is licensed under MIT License.
-The licence only applies to this repository, please contact oscimp authrors for
-license related to oscimp platform.
+The license only applies to this repository, please contact respective reposiory authors/owners for
+license related to other repos.
 
 ## Build
 
@@ -34,3 +34,25 @@ if necessary via docker build arguments.
 
 - Follow instructions on [Oscimp github page](https://github.com/oscimp/oscimpDigital) ans set your `settings.sh`
 accordingly.
+
+## Links
+
+### Oscimp
+
+- [oscimp fpga sources](https://github.com/oscimp/fpga_ip)
+
+### PlutoSDR
+
+- [Pluto SDR Buildroot Sources](https://github.com/oscimp/PlutoSDR)
+- [gr-iio](https://github.com/analogdevicesinc/gr-iio)
+
+### Redpitaya
+
+- [Redpitaya Notes](https://pavel-demin.github.io/red-pitaya-notes/)
+- [Redpitaya Buildroot Sources](https://github.com/trabucayre/redpitaya)
+
+## Issues
+
+- If you have issues using or building the buildroot, open an issue on [Github]().
+
+- Maintained by [Prasad Tengse](https://github.com/tprasadtp).

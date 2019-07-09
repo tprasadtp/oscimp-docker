@@ -77,7 +77,7 @@ jobs:
             name: Build Redpitaya Buildroot
             command: |
               ./build.sh -k -b redpitaya
-              mkdir -p releases/redpitaya
+              mkdir -p releases/redpitaya --skip-build
         - run:
             # after application container finishes, copy artifacts directly from it
             name: Copy Buildroot tarball

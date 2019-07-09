@@ -85,7 +85,7 @@ main()
       -h | --help)                     display_usage;exit 0;;
       -b | --board)                    shift;board="${1}";;
       -d | --dummy)                    run_dummy="true";;
-      -- skip-build)                   skip_build="true";;
+      --skip-build)                   skip_build="true";;
       *)                               printf "Invalid argument!\n";exit 1;;
     esac
     shift

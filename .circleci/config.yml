@@ -15,7 +15,7 @@ jobs:
     environment:
       BUILDROOT_VERSION: "2019.02"
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.5.7-stretch
     working_directory: ~/repo
     steps:
       # Checkout Repo
@@ -30,7 +30,7 @@ jobs:
             VER="18.09.3"
             curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
             tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-            mv /tmp/docker/* /usr/bin
+            sudo mv /tmp/docker/* /usr/bin
       - run:
           # Build Buildroot
           name: Build Pluto Buildroot
@@ -71,13 +71,13 @@ jobs:
               VER="18.09.3"
               curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
               tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-              mv /tmp/docker/* /usr/bin
+              sudo mv /tmp/docker/* /usr/bin
         - run:
             # Build Buildroot for redpitaya
             name: Build Redpitaya Buildroot
             command: |
-              ./build.sh -k -b redpitaya
-              mkdir -p releases/redpitaya --skip-build
+              ./build.sh -k -b redpitaya --skip-build
+              mkdir -p releases/redpitaya
         - run:
             # after application container finishes, copy artifacts directly from it
             name: Copy Buildroot tarball

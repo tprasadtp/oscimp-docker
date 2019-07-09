@@ -2,6 +2,8 @@ FROM ubuntu:bionic as buildrooter
 ENV BOARD="redpitaya"
 ARG COMMIT_SHA="c6b1d46a2429feb9c7ad4908b8ff642a50fcff84"
 LABEL maintainer="Prasad Tengse <tengsep@tf.uni-freiburg.de>"
+LABEL buildroot.commit=$COMMIT_SHA
+LABEL buildroot.board=$BOARD
 
 # Add Essentials
 RUN apt-get update && \

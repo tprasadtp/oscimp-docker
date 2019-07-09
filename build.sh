@@ -16,11 +16,10 @@ Build OSCIMP Buildroot inside docker.
 This script uses buildkit,
 See options to disable buildkit if you have issues.
 
--b --enable-buildkit   Enable docker build-kit
+-k --enable-buildkit   Enable docker build-kit
 -l --no-latest-tag     Disable tagging latest
--c --skip-copy         Skip copying to debarchives
 -h --help              Display this message
-
+-b --board {pluto|red} Board type
 EOF
 }
 
@@ -48,14 +47,14 @@ build_docker_image()
 
   printf "Building docker image for ${BOARD}\n"
 
-  if [[ $TRAVIS == "true" ]]; then
-    docker_image_tag="${docker_image_tag_prefix}-${BOARD}:${TRAVIS_COMMIT:0:7}"
-    docker build --tag ${docker_image_tag} ${BOARD}
+  if [[ $CI == "true" ]]; then
+    COMMIT_ID="${CIRCLE_SHA1}"
   else
-    TRAVIS_COMMIT="$(git rev-parse HEAD)"
-    docker_image_tag="${docker_image_tag_prefix}-${BOARD}:${TRAVIS_COMMIT:0:7}"
-    docker build --tag ${docker_image_tag} ${BOARD}
+    COMMIT_ID="$(git rev-parse HEAD)"
   fi
+
+  docker_image_tag="${docker_image_tag_prefix}-${BOARD}:${COMMIT_ID:0:7}"
+  docker build --tag ${docker_image_tag} ${BOARD}
 
   if [[ $disable_latest_tag == "true" ]]; then
     printf "Image will not be tagged latest.\n"
@@ -63,18 +62,13 @@ build_docker_image()
     printf "Add latest tag...\n"
     docker tag "${docker_image_tag}" "${docker_image_tag_prefix}-${BOARD}:latest"
   fi
+
+  if [[ $run_dummy == "true" ]]; then
+    docker run --name buildroot ${docker_image_tag_prefix}-${BOARD}:${COMMIT_ID:0:7} /bin/true
+  fi
+
 }
 
-
-copy_tar_file()
-{
-  mkdir -p releases
-  printf "Copying Tar file...\n"
-  docker run --rm -it \
-    -v "$(pwd)"/releases:/home/ubuntu/releases \
-    "${docker_image_tag_prefix}-${BOARD}:${TRAVIS_COMMIT:0:7}" \
-    bash -c "cp /home/ubuntu/build/${BOARD}.tar.gz /home/ubuntu/releases/${BOARD}.tar.gz && cp /home/ubuntu/build/${BOARD}.tar.gz.* /home/ubuntu/releases/ "
-}
 
 main()
 {
@@ -84,6 +78,7 @@ main()
       -l | --no-latest-tag)            disable_latest_tag="true";;
       -h | --help)                     display_usage;exit 0;;
       -b | --board)                    shift;board="${1}";;
+      -d | --dummy)                    run_dummy="true";;
       *)                               printf "Invalid argument!\n";exit 1;;
     esac
     shift
@@ -97,7 +92,6 @@ main()
 
   display_info
   build_docker_image;
-  copy_tar_file;
 }
 
 main "$@"

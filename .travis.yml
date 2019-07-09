@@ -12,7 +12,7 @@ branches:
 before_install:
 - chmod +x ./build.sh
 script:
-- ./build.sh -b plutosdr
+- travis_wait ./build.sh -b plutosdr
 before_deploy:
 - curl https://github.com/lindell/github-release-cli/releases/download/0.5.0/github-releaser-travis -L --output github-releaser && chmod +x github-releaser
 - export BODY=$(envsubst < ./CHANGELOG.md)

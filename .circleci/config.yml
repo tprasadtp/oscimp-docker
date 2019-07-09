@@ -4,6 +4,9 @@ jobs:
     docker:
       - image: koalaman/shellcheck-alpine:stable
     steps:
+      - run:
+          name: Install Git & Bash
+          command: apk add git bash curl
       - checkout
       - run:
           name: Check Buildscript

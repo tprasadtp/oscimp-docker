@@ -55,6 +55,6 @@ RUN tar -cvzf buildroot-2019.02-plutosdr.tar.gz /home/ubuntu/buildroot-2019.02-p
     && sha1sum buildroot-2019.02-plutosdr.tar.gz > buildroot-2019.02-plutosdr.tar.gz.SHA1SUM \
     && sha256sum buildroot-2019.02-plutosdr.tar.gz > buildroot-2019.02-plutosdr.tar.gz.SHA256SUM \
     && mkdir -p /home/ubuntu/build \
-    && mv buildroot-2019.02-plutosdr.tar.gz /home/ubuntu/build/buildroot-2019.02-plutosdr.tar.gz
+    && mv buildroot-2019.02-plutosdr.tar.gz /home/ubuntu/build/buildroot-2019.02-plutosdr.tar.gz \
     && mv buildroot-2019.02-plutosdr.tar.gz /home/ubuntu/build/buildroot-2019.02-plutosdr.tar.gz \
     && mv buildroot-2019.02-plutosdr.tar.gz.* /home/ubuntu/build/

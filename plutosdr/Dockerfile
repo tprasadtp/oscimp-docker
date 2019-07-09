@@ -47,7 +47,7 @@ RUN wget https://buildroot.org/downloads/buildroot-2019.02.tar.gz \
 ENV BR2_EXTERNAL=/home/ubuntu/PlutoSDR
 
 RUN cd buildroot-2019.02-plutosdr \
-    && make zynq_plutosdr_defconfig \
+    && make zynq_pluto_defconfig \
     && unset LD_LIBRARY_PATH \
     && make
 

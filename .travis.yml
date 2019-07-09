@@ -1,0 +1,35 @@
+sudo: required
+language: python
+dist: xenial
+python:
+- '3.6'
+services:
+- docker
+branches:
+  except:
+  - gh-pages
+  - github_metadata
+before_install:
+- sudo mkdir -p /etc/docker/ && sudo cp cfg/daemon.json /etc/docker/daemon.json
+- sudo systemctl restart docker
+- sudo systemctl status docker
+- docker info
+- chmod +x ./build.sh
+script:
+- ./build.sh -b plutosdr -k
+before_deploy:
+- curl https://github.com/lindell/github-release-cli/releases/download/0.5.0/github-releaser-travis -L --output github-releaser && chmod +x github-releaser
+- export BODY=$(envsubst < ./CHANGELOG.md)
+- export FILES=releases/*
+- export RELEASE_NAME=$(echo "OSCIMP Buildroot v$TRAVIS_TAG" | envsubst)
+deploy:
+  - provider: script
+    script: ./github-releaser -draft -verbose
+    skip_cleanup: true
+    on:
+      branch: master
+      tags: true
+matrix:
+  fast_finish: true
+notifications:
+  email: false

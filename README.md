@@ -18,7 +18,7 @@ license related to other repos.
 ## Build
 
 - Buildroot tarballs are available under [Github releases](https://github.com/imtek-emp/oscimp-docker/releases).
-- They are built from latest commits for [Pluto](https://github.com/oscimp/PlutoSDR)
+- They are built for [Pluto](https://github.com/oscimp/PlutoSDR)
 and [Redpitaya](https://github.com/trabucayre/redpitaya).
 - They are built from commits `COMMIT_SHA` mentioned in `Dockerfile`, which can be changed
 if necessary via docker build arguments.
@@ -32,7 +32,7 @@ if necessary via docker build arguments.
     tar -xzf buildroot-{buildrootversion}-{boardname}.tar.gz
   ```
 
-- Follow instructions on [Oscimp github page](https://github.com/oscimp/oscimpDigital) ans set your `settings.sh`
+- Follow instructions on [Oscimp github page](https://github.com/oscimp/oscimpDigital) and set your `settings.sh`
 accordingly.
 
 ## Links
@@ -43,13 +43,13 @@ accordingly.
 
 ### PlutoSDR
 
-- [Pluto SDR Buildroot Sources](https://github.com/oscimp/PlutoSDR)
+- [Buildroot Sources](https://github.com/oscimp/PlutoSDR)
 - [gr-iio](https://github.com/analogdevicesinc/gr-iio)
 
 ### Redpitaya
 
 - [Redpitaya Notes](https://pavel-demin.github.io/red-pitaya-notes/)
-- [Redpitaya Buildroot Sources](https://github.com/trabucayre/redpitaya)
+- [Buildroot Sources](https://github.com/trabucayre/redpitaya)
 
 ## Issues
 

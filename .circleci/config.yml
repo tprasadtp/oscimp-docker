@@ -36,6 +36,7 @@ jobs:
           # Build Buildroot
           name: Build Pluto Buildroot
           command: |
+            chmod +x build.sh
             ./build.sh -k -b pluto --skip-build
             mkdir -p releases/pluto
       - run:
@@ -77,6 +78,7 @@ jobs:
             # Build Buildroot for redpitaya
             name: Build Redpitaya Buildroot
             command: |
+              chmod +x build.sh
               ./build.sh -k -b redpitaya --skip-build
               mkdir -p releases/redpitaya
         - run:

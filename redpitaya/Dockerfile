@@ -38,7 +38,7 @@ RUN useradd -rm -d /home/ubuntu -s /bin/bash -u 1000 ubuntu
 USER ubuntu
 WORKDIR /home/ubuntu
 # Prep Buildroot
-RUN git clone hhttps://github.com/trabucayre/redpitaya \
+RUN git clone https://github.com/trabucayre/redpitaya \
     && cd redpitaya \
     && git checkout ${COMMIT_SHA}
 RUN wget https://buildroot.org/downloads/buildroot-2019.02.tar.gz \

@@ -37,7 +37,7 @@ jobs:
           name: Build Pluto Buildroot
           command: |
             chmod +x build.sh
-            ./build.sh -k -b pluto --skip-build
+            ./build.sh -b pluto
             mkdir -p releases/pluto
       - run:
           # after application container finishes, copy artifacts directly from it
@@ -79,7 +79,7 @@ jobs:
             name: Build Redpitaya Buildroot
             command: |
               chmod +x build.sh
-              ./build.sh -k -b redpitaya --skip-build
+              ./build.sh -b redpitaya
               mkdir -p releases/redpitaya
         - run:
             # after application container finishes, copy artifacts directly from it

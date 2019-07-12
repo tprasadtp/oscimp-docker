@@ -48,12 +48,14 @@ RUN wget https://buildroot.org/downloads/buildroot-2019.02.tar.gz \
 ENV BR2_EXTERNAL=/home/ubuntu/redpitaya
 
 RUN cd buildroot-2019.02-redpitaya\
-    && make make redpitaya_defconfig \
+    && make redpitaya_xenomai_defconfig \
     && unset LD_LIBRARY_PATH \
     && make
 
-RUN tar -cvzf buildroot-2019.02-redpitaya.tar.gz /home/ubuntu/buildroot-2019.02-redpitaya \
-    && sha1sum buildroot-2019.02-redpitaya.tar.gz > buildroot-2019.02-redpitaya.tar.gz.SHA1SUM \
+RUN tar -cvzf buildroot-2019.02-redpitaya.tar.gz /home/ubuntu/buildroot-2019.02-redpitaya
+
+# Checksum and copy
+RUN sha1sum buildroot-2019.02-redpitaya.tar.gz > buildroot-2019.02-redpitaya.tar.gz.SHA1SUM \
     && sha256sum buildroot-2019.02-redpitaya.tar.gz > buildroot-2019.02-redpitaya.tar.gz.SHA256SUM \
     && mkdir -p /home/ubuntu/build \
     && mv buildroot-2019.02-redpitaya.tar.gz /home/ubuntu/build/buildroot-2019.02-redpitaya.tar.gz \

@@ -2,8 +2,7 @@
 
 This repository is home for buildroots for plutosdr and redpitaya to be used with OscimpDigital.
 
-![Travis (.com)](https://img.shields.io/travis/com/imtek-emp/oscimp-docker.svg)
-![GitHub](https://img.shields.io/github/license/imtek-emp/oscimp-docker.svg)
+[![CircleCI](https://circleci.com/gh/tprasadtp/oscimp-docker/tree/master.svg?style=svg)](https://circleci.com/gh/tprasadtp/oscimp-docker/tree/master)![GitHub](https://img.shields.io/github/license/imtek-emp/oscimp-docker.svg)
 
 ## Credits
 

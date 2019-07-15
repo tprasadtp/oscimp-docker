@@ -24,7 +24,12 @@ if necessary via docker build arguments.
 
 ## Usage
 
-- Download the latest release from [Github releases](https://github.com/imtek-emp/oscimp-docker/releases) page.
+- Download the latest release checksums from [Github releases](https://github.com/imtek-emp/oscimp-docker/releases) or Smaba share page.
+- Get the buildroot tarballs from SAMBA file share(tarballs are too big for github Releases)
+- Verify the checksum
+  ```console
+    sha1sum -c buildroot-{buildrootversion}-{boardname}.tar.gz.SHA1SUM
+  ```
 - Unpack the tarball
 
   ```console

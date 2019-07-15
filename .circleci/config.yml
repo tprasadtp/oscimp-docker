@@ -37,7 +37,7 @@ jobs:
           name: Build Pluto Buildroot
           command: |
             chmod +x build.sh
-            ./build.sh -b pluto
+            ./build.sh -b pluto -d
             mkdir -p releases/pluto
       - run:
           # after application container finishes, copy artifacts directly from it
@@ -79,14 +79,14 @@ jobs:
             name: Build Redpitaya Buildroot
             command: |
               chmod +x build.sh
-              ./build.sh -b redpitaya
+              ./build.sh -b redpitaya -d
               mkdir -p releases/redpitaya
         - run:
             # after application container finishes, copy artifacts directly from it
             name: Copy Buildroot tarball
             command: |
-              docker cp buildroot:/home/ubuntu/build/buildroot-${BUILDROOT_VERSION}-redpitaya.tar.gz releases/pluto
-              docker cp buildroot:/home/ubuntu/build/buildroot-${BUILDROOT_VERSION}-redpitaya.tar.gz.* releases/pluto
+              docker cp buildroot:/home/ubuntu/build/buildroot-${BUILDROOT_VERSION}-redpitaya.tar.gz releases/redpitaya
+              docker cp buildroot:/home/ubuntu/build/buildroot-${BUILDROOT_VERSION}-redpitaya.tar.gz.* releases/redpitaya
         - persist_to_workspace:
             # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
             # taken to be the root directory of the workspace.
@@ -101,10 +101,11 @@ jobs:
         - image: cibuilds/github:0.10
       steps:
         - attach_workspace:
-            at: ./releases
+            at: ./
         - run:
             name: "Publish Release on GitHub"
             command: |
+              ls -la
               ghr -t ${GITHUB_TOKEN} -u imtek-emp-bot -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} ./releases/
 workflows:
   version: 2

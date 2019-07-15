@@ -16,16 +16,15 @@ license related to other repos.
 
 ## Build
 
-- Buildroot tarballs are available under [Github releases](https://github.com/imtek-emp/oscimp-docker/releases).
 - They are built for [Pluto](https://github.com/oscimp/PlutoSDR)
 and [Redpitaya](https://github.com/trabucayre/redpitaya).
 - They are built from commits `COMMIT_SHA` mentioned in `Dockerfile`, which can be changed
 if necessary via docker build arguments.
 
-## Usage
+## Usage [Only withing Uni-EMP network or via VPN]
 
 - Download the latest release checksums from [Github releases](https://github.com/imtek-emp/oscimp-docker/releases) or Smaba share page.
-- Get the buildroot tarballs from SAMBA file share(tarballs are too big for github Releases)
+- Get the buildroot tarballs from SAMBA file share(tarballs are too big for Github Releases)
 - Verify the checksum
   ```console
     sha1sum -c buildroot-{buildrootversion}-{boardname}.tar.gz.SHA1SUM
@@ -39,6 +38,11 @@ if necessary via docker build arguments.
 - Follow instructions on [Oscimp github page](https://github.com/oscimp/oscimpDigital) and set your `settings.sh`
 accordingly.
 
+- If you are outside Uni-Freiburg Network you have to use `build.sh` to build the buildroot and copy the `/home/ubuntu/build/` folder outside docker. If you pass `-d` flag to the build script, it will run a dummy container, and you can copy the files using 
+  ```console
+    mkdir -p buildroot
+    docker cp buildroot:/home/ubuntu/build/* buildroot/`
+  ```
 ## Links
 
 ### Oscimp
